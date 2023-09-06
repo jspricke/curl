@@ -285,6 +285,7 @@ DPAGES = \
   tlsv1.2.md \
   tlsv1.3.md \
   tlsv1.md \
+  ech.md \
   tr-encoding.md \
   trace-ascii.md \
   trace-config.md \
