@@ -69,6 +69,7 @@ ifeq ($(filter pkg.curl.no-openssl,$(DEB_BUILD_PROFILES)),)
 	cp ../../ltmain.sh . && \
 	dh_auto_configure ${CONFIGURE_ARGS} --with-openssl \
 		--with-ca-path=/etc/ssl/certs \
+	        --enable-ech --enable-httpsrr \
 		--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt
 endif
 ifeq ($(filter pkg.curl.no-gnutls,$(DEB_BUILD_PROFILES)),)
@@ -97,6 +98,9 @@ TESTS_GENERAL_PARAMETERS += -n
 TESTS_FAILS_ON_IPV6_ONLY_MACHINES ?= $(addprefix ~, 300 301 303 304 306 309 310 325 364 400 401 403 406 407 408 409 410 414 417 560 678 987 988 989 1112 1272 1470 1561 1562 1630 1631 1632 2034 2037 2041 3000 3001 3102)
 
 TESTS_GENERAL_PARAMETERS += $(TESTS_FAILS_ON_IPV6_ONLY_MACHINES)
+
+# ignore ECH symbol
+TESTS_GENERAL_PARAMETERS += ~1119 ~1139 ~1477 ~1478 ~1538
 
 override_dh_auto_test:
 ifeq ($(filter nocheck,$(DEB_BUILD_PROFILES)),)
