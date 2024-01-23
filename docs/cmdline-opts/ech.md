@@ -1,15 +1,19 @@
+---
 c: Copyright (C) Daniel Stenberg, <daniel@haxx.se>, et al.
 SPDX-License-Identifier: curl
 Long: ech
-Arg: <name>
 Help: TLS Encrypted Client Hello (ECH)
+Arg: <name>
 Added: x.xx.x
 Category: tls ECH
-Example: --ech <config> $URL
-See-also: doh-url
 Multi: single
+See-also:
+  - doh-url
+Example:
+  - --ech <config> $URL
 ---
-Configure Encrypted Client Hello (ECH) for use with the TLS session.
+
+# Configure Encrypted Client Hello (ECH) for use with the TLS session.
 
 Possible values for <config> are:
 
