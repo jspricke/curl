@@ -41,6 +41,7 @@ auth
 autobuild
 autobuilds
 Autoconf
+autoconf
 Automake
 Autotools
 autotools
@@ -114,8 +115,8 @@ clientp
 cliget
 closesocket
 CMake
-CMake's
 cmake
+CMake's
 cmake's
 CNAME
 CNAMEs
@@ -296,6 +297,7 @@ GREASE
 GREASEing
 Greear
 groff
+gsasl
 GSKit
 gskit
 GSS
@@ -816,6 +818,7 @@ Tekniska
 testability
 TFTP
 tftp
+threadsafe
 Tizen
 TLS
 tlsv

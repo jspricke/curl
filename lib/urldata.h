@@ -53,6 +53,8 @@
 #define PORT_GOPHER 70
 #define PORT_MQTT 1883
 
+struct curl_trc_featt;
+
 #ifdef USE_ECH
 /* CURLECH_ bits for the tls_ech option */
 # define CURLECH_DISABLE    0
@@ -275,11 +277,17 @@ typedef enum {
 /* SSL backend-specific data; declared differently by each SSL backend */
 struct ssl_backend_data;
 
+typedef enum {
+  CURL_SSL_PEER_DNS,
+  CURL_SSL_PEER_IPV4,
+  CURL_SSL_PEER_IPV6
+} ssl_peer_type;
+
 struct ssl_peer {
   char *hostname;        /* hostname for verification */
   char *dispname;        /* display version of hostname */
   char *sni;             /* SNI version of hostname or NULL if not usable */
-  BIT(is_ip_address);    /* if hostname is an IPv4|6 address */
+  ssl_peer_type type;    /* type of the peer information */
 };
 
 struct ssl_primary_config {
@@ -734,10 +742,6 @@ struct SingleRequest {
 #ifndef CURL_DISABLE_DOH
   struct dohdata *doh; /* DoH specific data for this request */
 #endif
-#if defined(_WIN32) && defined(USE_WINSOCK)
-  struct curltime last_sndbuf_update;  /* last time readwrite_upload called
-                                          win_update_buffer_size */
-#endif
   char fread_eof[2]; /* the body read callback (index 0) returned EOF or
                         the trailer read callback (index 1) returned EOF */
 #ifndef CURL_DISABLE_COOKIES
@@ -1008,6 +1012,11 @@ struct connectdata {
   /*************** Request - specific items ************/
 #if defined(USE_WINDOWS_SSPI) && defined(SECPKG_ATTR_ENDPOINT_BINDINGS)
   CtxtHandle *sslContext;
+#endif
+
+#if defined(_WIN32) && defined(USE_WINSOCK)
+  struct curltime last_sndbuf_update;  /* last time readwrite_upload called
+                                          win_update_buffer_size */
 #endif
 
 #ifdef USE_GSASL
@@ -1449,6 +1458,10 @@ struct UrlState {
 #ifdef USE_HYPER
   bool hconnect;  /* set if a CONNECT request */
   CURLcode hresult; /* used to pass return codes back from hyper callbacks */
+#endif
+
+#ifndef CURL_DISABLE_VERBOSE_STRINGS
+  struct curl_trc_feat *feat; /* opt. trace feature transfer is part of */
 #endif
 
   /* Dynamically allocated strings, MUST be freed before this struct is
