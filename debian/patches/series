@@ -6,5 +6,4 @@ Remove-curl-s-LDFLAGS-from-curl-config-static-libs.patch
 
 # Do not add patches below.
 # Used to generate packages for the other crypto libraries.
-add_errorcodes_upstream_file.patch
 90_gnutls.patch
