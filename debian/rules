@@ -20,6 +20,7 @@ CONFIGURE_ARGS = -- --disable-dependency-tracking		\
 	--with-ca-path=/etc/ssl/certs \
 	--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
 	--without-libssh --with-libssh2 \
+	--enable-ech \
 	--cache-file=$(CURDIR)/debian/config.cache
 
 # Experimental features targetted at debian experimental

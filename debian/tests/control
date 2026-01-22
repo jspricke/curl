@@ -25,3 +25,7 @@ Restrictions: superficial
 Tests: build-using-libcurl-gnutls
 Depends: build-essential, libcurl4-gnutls-dev, pkgconf
 Restrictions: superficial
+
+Test-Command: curl --ech true --doh-url 'https://1.1.1.1/dns-query' 'https://defo.ie/ech-check.php' | grep 'SSL_ECH_STATUS: success'
+Restrictions: needs-internet, allow-stderr
+Depends: curl, ca-certificates
